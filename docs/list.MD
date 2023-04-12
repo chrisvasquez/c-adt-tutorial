@@ -78,4 +78,11 @@ behaviours should be explored.
 ### 1.05a
 
 Added mechanism to free memory of the array list. Added it to 
-`list_interface` also
+`list_interface` also.
+
+### 1.05b
+
+`data_structures.c` demonstrates that the `void *` returned from the getters,
+also originally typed as `const void *` could be casted to a non-const pointer
+and is thus mutable and the underlying value contained in the array list will
+be changed also.

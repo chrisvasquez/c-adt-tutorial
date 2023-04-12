@@ -77,6 +77,15 @@ int main(int argc, char *argv[])
     k = *((int *)list_interface->get_last(list));
     printf("Element at the end: %d\n", k);
 
+
+    int *e1 = (int *)list_interface->get_last(list);
+    *e1 = 5;
+
+    printf("Element at the last position is :%d\n", *e1);
+
+    int *e2 = (int *)list_interface->get_last(list);
+    printf("Element at the last position is :%d\n", *e2);
+
     list_interface->free_list(list);
 
     return 0;
