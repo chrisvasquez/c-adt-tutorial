@@ -53,7 +53,12 @@ static const void *add_at(list_t list, void *elt, size_t index)
 
 static bool contains(list_t list, void *elt)
 {
-    return true;
+    return ((const struct list_impl_base *)list)->fn_table->contains(list, elt);
+}
+
+void free_list(list_t list)
+{
+    ((const struct list_impl_base *)list)->fn_table->free_list(list);
 }
 
 static const struct list_intf list_interface_implementation = {create,
@@ -64,6 +69,7 @@ static const struct list_intf list_interface_implementation = {create,
                                                                add_last,
                                                                add_first,
                                                                add_at,
-                                                               contains};
+                                                               contains,
+                                                               free_list};
 
 const struct list_intf *list_interface = &list_interface_implementation;

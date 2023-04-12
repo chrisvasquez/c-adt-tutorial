@@ -3,6 +3,10 @@
 
 #include "arraylist.h"
 
+void dispose_fn(const void *kv) {
+    free((void *) kv);
+}
+
 int main(int argc, char *argv[])
 {
     printf("Starting data structures ...\n");
@@ -10,7 +14,7 @@ int main(int argc, char *argv[])
     list_t list = list_interface->create(&arraylist_implementation,
                                          NULL,
                                          NULL,
-                                         NULL,
+                                         dispose_fn,
                                          true);
 
 
@@ -72,6 +76,8 @@ int main(int argc, char *argv[])
 
     k = *((int *)list_interface->get_last(list));
     printf("Element at the end: %d\n", k);
+
+    list_interface->free_list(list);
 
     return 0;
 }

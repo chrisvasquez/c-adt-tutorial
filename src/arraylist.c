@@ -160,6 +160,29 @@ static bool contains(list_t list, void *elt)
     return false;
 }
 
+static void free_list(list_t list)
+{
+    if (list->elements != NULL)
+    {
+        if (list->base.dispose_fn != NULL)
+        {
+            size_t count = list->count;
+
+            if (count > 0)
+            {
+                list_element_dispose_fn dispose = list->base.dispose_fn;
+                const void **elements = list->elements;
+
+                do
+                    dispose(*elements++);
+                while (--count > 0);
+            }
+        }
+        free(list->elements);
+    }
+    free(list);
+}
+
 const struct list_implementation arraylist_implementation = {create,
                                                              size,
                                                              get_at,
@@ -168,4 +191,5 @@ const struct list_implementation arraylist_implementation = {create,
                                                              add_last,
                                                              add_first,
                                                              add_at,
-                                                             contains};
+                                                             contains,
+                                                             free_list};

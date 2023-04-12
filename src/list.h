@@ -91,6 +91,7 @@ struct list_intf
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
     bool (*contains)(list_t list, void *elt);
+    void (*free_list)(list_t list);
 };
 
 extern const struct list_intf *list_interface;
@@ -110,6 +111,7 @@ struct list_implementation
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
     bool (*contains)(list_t list, void *elt);
+    void (*free_list)(list_t list);
 };
 
 #endif // TEAM_VASQUEZ_LIST_H

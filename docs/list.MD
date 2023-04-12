@@ -74,3 +74,8 @@ types will be for each of the setters and getters should be finalised.
 Further additional provisions for iterator functions and type and an
 abstract data type `list_node_t` or list node type with specific 
 behaviours should be explored.
+
+### 1.05a
+
+Added mechanism to free memory of the array list. Added it to 
+`list_interface` also
