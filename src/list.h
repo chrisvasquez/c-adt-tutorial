@@ -87,9 +87,9 @@ struct list_intf
     const void *(*get_at)(list_t list, size_t index);
     const void *(*get_first)(list_t list);
     const void *(*get_last)(list_t list);
-    void *(*add_last)(list_t list, void *elt);
-    void *(*add_first)(list_t list, void *elt);
-    void *(*add_at)(list_t list, void *elt, size_t index);
+    const void *(*add_last)(list_t list, void *elt);
+    const void *(*add_first)(list_t list, void *elt);
+    const void *(*add_at)(list_t list, void *elt, size_t index);
     bool (*contains)(list_t list, void *elt);
 };
 
@@ -106,9 +106,9 @@ struct list_implementation
     const void *(*get_at)(list_t list, size_t index);
     const void *(*get_first)(list_t list);
     const void *(*get_last)(list_t list);
-    void *(*add_last)(list_t list, void *elt);
-    void *(*add_first)(list_t list, void *elt);
-    void *(*add_at)(list_t list, void *elt, size_t index);
+    const void *(*add_last)(list_t list, void *elt);
+    const void *(*add_first)(list_t list, void *elt);
+    const void *(*add_at)(list_t list, void *elt, size_t index);
     bool (*contains)(list_t list, void *elt);
 };
 

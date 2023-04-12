@@ -39,6 +39,11 @@ grow(list_t list)
     return 0;
 }
 
+static bool pointer_equals(const void *elt1, const void *elt2)
+{
+    return elt1 == elt2;
+}
+
 static list_t create(list_implementation_t implementation,
                      list_element_equals_fn equals_fn,
                      list_element_compare_fn compare_fn,
@@ -92,24 +97,67 @@ static const void *get_last(list_t list)
     return (const void *)list->elements[count - 1];
 }
 
-static void *add_last(list_t list, void *elt)
-{
-    return NULL;
+static const void *add_last(list_t list, void *elt) {
+    size_t count = list->count;
+
+    if (count == list->capacity)
+        if (grow(list) < 0)
+            return NULL;
+    list->elements[count] = elt;
+    list->count = count + 1;
+    return list->elements[count];
 }
 
-static void *add_first(list_t list, void *elt)
+static const void *add_first(list_t list, void *elt)
 {
-    return NULL;
+    size_t count = list->count;
+    const void **elements;
+    size_t i;
+
+    if (count == list->capacity)
+        if (grow(list) < 0)
+            return NULL;
+    elements = list->elements;
+    for (i = count; i > 0; i--)
+        elements[i] = elements[i - 1];
+    elements[0] = elt;
+    list->count = count + 1;
+    return list->elements[0];
 }
 
-static void *add_at(list_t list, void *elt, size_t index)
+static const void *add_at(list_t list, void *elt, size_t index)
 {
-    return NULL;
+    size_t count = list->count;
+    const void **elements;
+    size_t i;
+
+    if (!(index <= count))
+        /* Invalid argument.  */
+        abort();
+    if (count == list->capacity)
+        if (grow(list) < 0)
+            return NULL;
+    elements = list->elements;
+    for (i = count; i > index; i--)
+        elements[i] = elements[i - 1];
+    elements[index] = elt;
+    list->count = count + 1;
+    return list->elements[index];
 }
 
 static bool contains(list_t list, void *elt)
 {
-    return true;
+    list_element_equals_fn equals_fn =
+            list->base.equals_fn != NULL
+            ? list->base.equals_fn
+            : pointer_equals;
+
+    for (size_t i = 0; i < list->count; i++)
+    {
+        if (equals_fn(elt, list->elements[i]))
+            return true;
+    }
+    return false;
 }
 
 const struct list_implementation arraylist_implementation = {create,

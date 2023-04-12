@@ -63,3 +63,14 @@ function declarations.
 ### 1.04c
 
 Implemented grow function for array list.
+
+## 1.05
+
+Basic array list fully implemented.
+
+All the getters works and tested superficially. All the adders are 
+also implemented superficially. Further decisions on what the return
+types will be for each of the setters and getters should be finalised.
+Further additional provisions for iterator functions and type and an
+abstract data type `list_node_t` or list node type with specific 
+behaviours should be explored.

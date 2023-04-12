@@ -36,17 +36,17 @@ static const void *get_last(list_t list)
     return ((const struct list_impl_base *)list)->fn_table->get_last(list);
 }
 
-static void *add_last(list_t list, void *elt)
+static const void *add_last(list_t list, void *elt)
 {
     return ((const struct list_impl_base *)list)->fn_table->add_last(list, elt);
 }
 
-static void *add_first(list_t list, void *elt)
+static const void *add_first(list_t list, void *elt)
 {
     return ((const struct list_impl_base *)list)->fn_table->add_first(list, elt);
 }
 
-static void *add_at(list_t list, void *elt, size_t index)
+static const void *add_at(list_t list, void *elt, size_t index)
 {
     return ((const struct list_impl_base *)list)->fn_table->add_at(list, elt, index);
 }
