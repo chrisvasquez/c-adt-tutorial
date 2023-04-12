@@ -11,17 +11,34 @@ struct list_impl
        0 <= COUNT <= ALLOCATED.  */
     const void **elements;
     size_t count;
-    size_t allocated;
+    size_t capacity;
 };
 
-static list_t create(list_implementation_t implementation)
+static list_t create(list_implementation_t implementation,
+                     list_element_equals_fn equals_fn,
+                     list_element_compare_fn compare_fn,
+                     list_element_dispose_fn dispose_fn,
+                     bool allow_duplicates)
 {
-    return NULL;
+    struct list_impl *list =
+            (struct list_impl *) malloc(sizeof(struct list_impl));
+    if (list == NULL)
+        return NULL;
+
+    list->base.fn_table = implementation;
+    list->base.equals_fn = equals_fn;
+    list->base.compare_fn = compare_fn;
+    list->base.dispose_fn = dispose_fn;
+    list->base.allow_duplicates = allow_duplicates;
+    list->count = 0;
+    list->capacity = 0;
+
+    return list;
 }
 
 static size_t size(list_t list)
 {
-    return 0;
+    return list->count;
 }
 
 static void *get_at(list_t list, size_t index)

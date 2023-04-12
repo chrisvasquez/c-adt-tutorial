@@ -3,9 +3,17 @@
 
 #include "list.h"
 
-static list_t create(list_implementation_t implementation)
+static list_t create(list_implementation_t implementation,
+                     list_element_equals_fn equals_fn,
+                     list_element_compare_fn compare_fn,
+                     list_element_dispose_fn dispose_fn,
+                     bool allow_duplicates)
 {
-    return implementation->create(implementation);
+    return implementation->create(implementation,
+                                  equals_fn,
+                                  compare_fn,
+                                  dispose_fn,
+                                  allow_duplicates);
 }
 
 static size_t size(list_t list)

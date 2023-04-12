@@ -78,7 +78,11 @@ struct list_impl_base
  *****************************************************************************/
 struct list_intf
 {
-    list_t (*create)(list_implementation_t implementation);
+    list_t (*create)(list_implementation_t implementation,
+                     list_element_equals_fn equals_fn,
+                     list_element_compare_fn compare_fn,
+                     list_element_dispose_fn dispose_fn,
+                     bool allow_duplicates);
     size_t (*size)(list_t list);
     void *(*get_at)(list_t list, size_t index);
     void *(*get_first)(list_t list);
@@ -93,7 +97,11 @@ extern const struct list_intf *list_interface;
 
 struct list_implementation
 {
-    list_t (*create)(list_implementation_t implementation);
+    list_t (*create)(list_implementation_t implementation,
+                     list_element_equals_fn equals_fn,
+                     list_element_compare_fn compare_fn,
+                     list_element_dispose_fn dispose_fn,
+                     bool allow_duplicates);
     size_t (*size)(list_t list);
     void *(*get_at)(list_t list, size_t index);
     void *(*get_first)(list_t list);

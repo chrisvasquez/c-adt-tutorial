@@ -40,3 +40,12 @@ abstract data type to function are defined. This includes the function to
 check of equality of elements, to compare one element to another and to 
 dispose of the memory allocated to each of the elements.
 
+## 1.04
+
+Incorporated base impl in array list.
+
+The implementation details in `list_impl_base` is incorporated in 
+the concrete data type array list. The required functions are reflected
+in all the `struct`s needed in the abstract data type. The basic
+`list_t` create by the `array_list_implementation` and the `size`
+function is implemented.
