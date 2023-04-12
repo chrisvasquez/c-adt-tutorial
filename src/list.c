@@ -26,12 +26,12 @@ static const void *get_at(list_t list, size_t index)
     return ((const struct list_impl_base *)list)->fn_table->get_at(list, index);
 }
 
-static void *get_first(list_t list)
+static const void *get_first(list_t list)
 {
     return ((const struct list_impl_base *)list)->fn_table->get_first(list);
 }
 
-static void *get_last(list_t list)
+static const void *get_last(list_t list)
 {
     return ((const struct list_impl_base *)list)->fn_table->get_last(list);
 }

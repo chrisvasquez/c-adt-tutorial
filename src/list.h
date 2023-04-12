@@ -85,8 +85,8 @@ struct list_intf
                      bool allow_duplicates);
     size_t (*size)(list_t list);
     const void *(*get_at)(list_t list, size_t index);
-    void *(*get_first)(list_t list);
-    void *(*get_last)(list_t list);
+    const void *(*get_first)(list_t list);
+    const void *(*get_last)(list_t list);
     void *(*add_last)(list_t list, void *elt);
     void *(*add_first)(list_t list, void *elt);
     void *(*add_at)(list_t list, void *elt, size_t index);
@@ -104,8 +104,8 @@ struct list_implementation
                      bool allow_duplicates);
     size_t (*size)(list_t list);
     const void *(*get_at)(list_t list, size_t index);
-    void *(*get_first)(list_t list);
-    void *(*get_last)(list_t list);
+    const void *(*get_first)(list_t list);
+    const void *(*get_last)(list_t list);
     void *(*add_last)(list_t list, void *elt);
     void *(*add_first)(list_t list, void *elt);
     void *(*add_at)(list_t list, void *elt, size_t index);

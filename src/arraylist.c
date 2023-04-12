@@ -47,26 +47,24 @@ static const void *get_at(list_t list, size_t index)
         /* Invalid state / parameter */
         abort();
 
-    return list->elements[index];
-
-    return
+    return (const void *)list->elements[index];
 }
 
-static void *get_first(list_t list)
+static const void *get_first(list_t list)
 {
     if (list->count == 0)
         /* Invalid call, no element present if count = 0 */
         abort();
-    return list->elements[0];
+    return (const void *)list->elements[0];
 }
 
-static void *get_last(list_t list)
+static const void *get_last(list_t list)
 {
     size_t count = list->count;
     if (count == 0)
         /* Invalid call, no element present if count = 0 */
         abort();
-    return list->elements[count - 1];
+    return (const void *)list->elements[count - 1];
 }
 
 static void *add_last(list_t list, void *elt)

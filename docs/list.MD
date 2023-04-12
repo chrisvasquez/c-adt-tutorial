@@ -53,3 +53,9 @@ function is implemented.
 ### 1.04a
 
 ArrayList getters implemented.
+
+### 1.04b
+
+Fixed error introduced by above commit regarding return type.
+Return type `void *` changed to `const void *` in the respective
+function declarations.
