@@ -24,9 +24,14 @@ struct list_implementation;
  *****************************************************************************/
 typedef const struct list_implementation *list_implementation_t;
 
+/******************************************************************************
+ * Type representing the base implementation of the concrete data type.
+ *
+ * This is the basic elements needed to implement the abstract data type.
+ *****************************************************************************/
 struct list_impl_base
 {
-    const struct list_implementation *fntable;
+    const struct list_implementation *fn_table;
 };
 
 /******************************************************************************
