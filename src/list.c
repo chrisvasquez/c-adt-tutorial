@@ -51,6 +51,16 @@ static const void *add_at(list_t list, void *elt, size_t index)
     return ((const struct list_impl_base *)list)->fn_table->add_at(list, elt, index);
 }
 
+static const void *node_value(list_t list, list_node_t node)
+{
+    return ((const struct list_impl_base *)list)->fn_table->node_value(list, node);
+}
+
+static list_node_t first_node(list_t list)
+{
+    return ((const struct list_impl_base *)list)->fn_table->first_node(list);
+}
+
 static bool contains(list_t list, void *elt)
 {
     return ((const struct list_impl_base *)list)->fn_table->contains(list, elt);
@@ -69,6 +79,8 @@ static const struct list_intf list_interface_implementation = {create,
                                                                add_last,
                                                                add_first,
                                                                add_at,
+                                                               node_value,
+                                                               first_node,
                                                                contains,
                                                                free_list};
 

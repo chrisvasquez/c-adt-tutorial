@@ -7,13 +7,23 @@ void dispose_fn(const void *kv) {
     free((void *) kv);
 }
 
+bool equals_fn(const void *elt1, const void *elt2)
+{
+    return *((int *)elt1) == *((int *)elt2);
+}
+
+int compare_fn(const void *elt1, const void *elt2)
+{
+    return *((int *)elt2) - *((int *)elt1);
+}
+
 int main(int argc, char *argv[])
 {
     printf("Starting data structures ...\n");
 
     list_t list = list_interface->create(&arraylist_implementation,
-                                         NULL,
-                                         NULL,
+                                         equals_fn,
+                                         compare_fn,
                                          dispose_fn,
                                          true);
 
@@ -85,6 +95,20 @@ int main(int argc, char *argv[])
 
     int *e2 = (int *)list_interface->get_last(list);
     printf("Element at the last position is :%d\n", *e2);
+
+    int e3 = 4;
+
+    printf("Contains   %d: %d.\n", e3, (int) list_interface->contains(list, &e3));
+
+    int e4 = 400;
+
+    printf("Contains %d: %d.\n", e4, (int) list_interface->contains(list, &e4));
+
+    list_node_t first_node = list_interface->first_node(list);
+
+    const void *first_node_value = list_interface->node_value(list, first_node);
+
+    (void) first_node_value;
 
     list_interface->free_list(list);
 

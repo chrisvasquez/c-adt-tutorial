@@ -4,6 +4,19 @@
 
 #include "arraylist.h"
 
+#include <stdio.h>
+
+/* struct list_node_impl does not need to be implemented here.
+ * The pointers are actually just indices + 1. The list_node_t is just
+ * the 1-indexed position of the node in the list.
+ * This would be more relevant for other concrete data types like linked lists
+ * where each node contains more information that just the value of the element.
+ * The node contains information regarding, for example, the pointer to the
+ * next node and the pointer to the previous node.
+ */
+#define INDEX_TO_NODE(index) (list_node_t)(uintptr_t)(size_t)((index) + 1)
+#define NODE_TO_INDEX(node) ((uintptr_t)(node)-1)
+
 /* Concrete tv_list_impl type, valid for this file only.  */
 struct list_impl
 {
@@ -39,12 +52,14 @@ grow(list_t list)
     return 0;
 }
 
-static bool pointer_equals(const void *elt1, const void *elt2)
+static bool
+pointer_equals(const void *elt1, const void *elt2)
 {
     return elt1 == elt2;
 }
 
-static list_t create(list_implementation_t implementation,
+static list_t
+create(list_implementation_t implementation,
                      list_element_equals_fn equals_fn,
                      list_element_compare_fn compare_fn,
                      list_element_dispose_fn dispose_fn,
@@ -66,12 +81,14 @@ static list_t create(list_implementation_t implementation,
     return list;
 }
 
-static size_t size(list_t list)
+static size_t
+size(list_t list)
 {
     return list->count;
 }
 
-static const void *get_at(list_t list, size_t index)
+static const void *
+get_at(list_t list, size_t index)
 {
     if (index > list->count)
         /* Invalid state / parameter */
@@ -80,7 +97,8 @@ static const void *get_at(list_t list, size_t index)
     return (const void *)list->elements[index];
 }
 
-static const void *get_first(list_t list)
+static const void *
+get_first(list_t list)
 {
     if (list->count == 0)
         /* Invalid call, no element present if count = 0 */
@@ -88,7 +106,8 @@ static const void *get_first(list_t list)
     return (const void *)list->elements[0];
 }
 
-static const void *get_last(list_t list)
+static const void *
+get_last(list_t list)
 {
     size_t count = list->count;
     if (count == 0)
@@ -97,7 +116,8 @@ static const void *get_last(list_t list)
     return (const void *)list->elements[count - 1];
 }
 
-static const void *add_last(list_t list, void *elt) {
+static const void *
+add_last(list_t list, void *elt) {
     size_t count = list->count;
 
     if (count == list->capacity)
@@ -108,7 +128,8 @@ static const void *add_last(list_t list, void *elt) {
     return list->elements[count];
 }
 
-static const void *add_first(list_t list, void *elt)
+static const void *
+add_first(list_t list, void *elt)
 {
     size_t count = list->count;
     const void **elements;
@@ -125,7 +146,8 @@ static const void *add_first(list_t list, void *elt)
     return list->elements[0];
 }
 
-static const void *add_at(list_t list, void *elt, size_t index)
+static const void *
+add_at(list_t list, void *elt, size_t index)
 {
     size_t count = list->count;
     const void **elements;
@@ -145,7 +167,31 @@ static const void *add_at(list_t list, void *elt, size_t index)
     return list->elements[index];
 }
 
-static bool contains(list_t list, void *elt)
+static const void *
+node_value(list_t list, list_node_t node)
+{
+    uintptr_t index = NODE_TO_INDEX(node);
+    printf("uintptr_t index is: %zu.\n", index);
+    if (!(index < list->count))
+        /* Invalid argument.  */
+        abort();
+    return list->elements[index];
+}
+
+static list_node_t
+first_node(list_t list)
+{
+    if (list->count > 0) {
+        printf("Pointer     : %zu.\n", (uintptr_t) (size_t) ((0) + 1));
+        printf("Pointer B2B : %zu.\n", (uintptr_t) (list_node_t) (uintptr_t) (size_t) ((0) + 1));
+        return INDEX_TO_NODE(0);
+    }
+    else
+        return NULL;
+}
+
+static bool
+contains(list_t list, void *elt)
 {
     list_element_equals_fn equals_fn =
             list->base.equals_fn != NULL
@@ -160,7 +206,8 @@ static bool contains(list_t list, void *elt)
     return false;
 }
 
-static void free_list(list_t list)
+static void
+free_list(list_t list)
 {
     if (list->elements != NULL)
     {
@@ -191,5 +238,7 @@ const struct list_implementation arraylist_implementation = {create,
                                                              add_last,
                                                              add_first,
                                                              add_at,
+                                                             node_value,
+                                                             first_node,
                                                              contains,
                                                              free_list};

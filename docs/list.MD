@@ -86,3 +86,13 @@ Added mechanism to free memory of the array list. Added it to
 also originally typed as `const void *` could be casted to a non-const pointer
 and is thus mutable and the underlying value contained in the array list will
 be changed also.
+
+## 1.06
+
+Commented more interface functions added.
+
+Functions that cater to the `list_node_t` is added to the `list_interface`.
+Further, initial function prototypes for list iterators are also added.
+The addition of these functions to the `list_implementeion` and the
+implementation in `list.c` will be added later as will the implementation
+in the concrete data type `array_list`.

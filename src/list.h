@@ -30,6 +30,16 @@ struct list_impl;
  *****************************************************************************/
 typedef struct list_impl *list_t;
 
+struct list_node_impl;
+/******************************************************************************
+ * Type representing a node entry.
+ *
+ * The `list_node_t` will be used here but the implementation details in the
+ * form of `list_node_impl` will be declared in each conrete implementation of
+ * the list data type.
+ *****************************************************************************/
+typedef struct list_node_impl *list_node_t;
+
 struct list_implementation;
 /******************************************************************************
  * Type representing an implementation of the abstract data type in concrete
@@ -90,7 +100,74 @@ struct list_intf
     const void *(*add_last)(list_t list, void *elt);
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
+    const void *(*node_value)(list_t list, list_node_t noe);
+//    int (*set_node_value)(list_t list, list_node_t node, const void *elt);
+    list_node_t (*first_node)(list_t list);
+//    list_node_t (*last_node)(list_t list);
+//    list_node_t (*previous_node)(list_t list, list_node_t node);
+//    list_node_t (*next_node)(list_t list, list_node_t node);
+//    list_node_t (*nx_get_at)(list_t list, size_t index);
+//    list_node_t (*nx_set_at)(list_t list, const void *elt, size_t index);
+//    list_node_t (*nx_add_at)(list_t list, const void *elt, size_t index);
+//    list_node_t (*nx_add_first)(list_t list, const void *elt);
+//    list_node_t (*nx_add_last)(list_t list, const void *elt);
+//    list_node_t (*nx_add_before)(list_t list, const void *elt, list_node_t node);
+//    list_node_t (*nx_add_after)(list_t list, const void *elt, list_node_t node);
+
+// Searching
+//    list_node_t (*search_from_to)(list_t list, const void *elt, size_t
+//            start_index, size_t end_index);
+//    size_t (*index_of_from_to)(list_t list, const void *elt,
+//            size_t start_index, size_t end_index);
+
+// Removal
+//    bool (*remove_node)(list_t list, list_node_t node);
+//    bool (*remove_at)(list_t list, size_t index);
+//    bool (*remove_elt)(list_t list, const void *elt);
+
     bool (*contains)(list_t list, void *elt);
+
+// /* tv_list_iterator_t functions.  */
+//    list_iterator_t (*iterator)(list_t list);
+//
+//    list_iterator_t (*iterator_from_to)(list_t list,
+//                                        size_t start_index,
+//                                        size_t end_index);
+//
+//    bool (*iterator_next)(list_iterator_t *iterator,
+//                          const void **eltp, list_node_t *nodep);
+//
+//    void (*iterator_free)(list_iterator_t *iterator);
+//
+//    // /* Sorted tv_list_t functions.  */
+//    list_node_t (*sorted_list_search)(list_t list,
+//                                      list_element_compare_fn compare_fn,
+//                                      const void *elt);
+//
+//    list_node_t (*sorted_list_search_from_to)(list_t list,
+//                                              list_element_compare_fn compare_fn,
+//                                              const void *elt,
+//                                              size_t start_index,
+//                                              size_t end_index);
+//
+//    size_t (*sorted_list_index_of)(list_t list,
+//                                   list_element_compare_fn compare_fn,
+//                                   const void *elt);
+//
+//    size_t (*sorted_list_index_of_from_to)(list_t list,
+//                                          list_element_compare_fn compare_fn,
+//                                          const void *elt,
+//                                          size_t start_index, size_t end_index);
+//
+//    list_node_t (*sorted_list_nx_add)(list_t list,
+//                                      list_element_compare_fn compare_fn,
+//                                      const void *elt);
+//
+//    bool (*sorted_list_remove)(list_t list,
+//                               list_element_compare_fn compare_fn,
+//                               const void *elt);
+
+//    void (*clear_list)(list_t list);
     void (*free_list)(list_t list);
 };
 
@@ -110,6 +187,8 @@ struct list_implementation
     const void *(*add_last)(list_t list, void *elt);
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
+    const void *(*node_value)(list_t list, list_node_t noe);
+    list_node_t (*first_node)(list_t list);
     bool (*contains)(list_t list, void *elt);
     void (*free_list)(list_t list);
 };
