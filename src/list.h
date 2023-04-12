@@ -4,6 +4,22 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+/* Type of function used to compare two elements.
+   NULL denotes pointer comparison.  */
+typedef bool (*list_element_equals_fn)(const void *elt1, const void *elt2);
+
+/* Type of function used to dispose an element once it's removed from a list.
+   NULL denotes a no-op.  */
+typedef void (*list_element_dispose_fn)(const void *elt);
+
+/* Type of function used to 2 elements:
+   -1 : elt1  < elt2
+    0 : elt1 == elt2
+    1 : elt1  > elt2
+    0 : is compatible with equals
+   NULL denotes a no-op.  */
+typedef int (*list_element_compare_fn)(const void *elt1, const void *elt2);
+
 struct list_impl;
 /******************************************************************************
  * Type representing an entire list.
@@ -31,7 +47,13 @@ typedef const struct list_implementation *list_implementation_t;
  *****************************************************************************/
 struct list_impl_base
 {
+    /* Will hold the struct that implements the concrete data type implementation
+       of the functions needed by the `list_interface.` */
     const struct list_implementation *fn_table;
+    list_element_equals_fn equals_fn;
+    list_element_compare_fn compare_fn;
+    list_element_dispose_fn dispose_fn;
+    bool allow_duplicates;
 };
 
 /******************************************************************************

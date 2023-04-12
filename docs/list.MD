@@ -31,3 +31,12 @@ Basic implementation of `list_implementation` and `list_intf` done. Stub
 implementation of a concrete data type array list in thourgh `ARRAYLIST_T` or
 `&arraylist_implementation`.
 
+## 1.03
+
+Define base for list implementation type
+
+The typedef for function prototype definitions for functions needed for the 
+abstract data type to function are defined. This includes the function to
+check of equality of elements, to compare one element to another and to 
+dispose of the memory allocated to each of the elements.
+
