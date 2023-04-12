@@ -3,6 +3,17 @@
 
 #include "arraylist.h"
 
+/* Concrete tv_list_impl type, valid for this file only.  */
+struct list_impl
+{
+    struct list_impl_base base;
+    /* An array of ALLOCATED elements, of which the first COUNT are used.
+       0 <= COUNT <= ALLOCATED.  */
+    const void **elements;
+    size_t count;
+    size_t allocated;
+};
+
 static list_t create(list_implementation_t implementation)
 {
     return NULL;
