@@ -178,6 +178,28 @@ node_value(list_t list, list_node_t node)
     return list->elements[index];
 }
 
+/**
+ *
+ * @param list
+ * @param node
+ * @param elt
+ * @return
+ *
+ * Concerns regarding the old value of at the index location.
+ * Should it be freed?
+ * What if there is something pointing to it still?
+ */
+static int
+set_node_value(list_t list, list_node_t node, const void *elt)
+{
+    size_t index = NODE_TO_INDEX(node);
+    if (!(index < list->count))
+        abort();
+    list->elements[index] = elt;
+    return 0;
+}
+
+
 static list_node_t
 first_node(list_t list)
 {
@@ -239,6 +261,7 @@ const struct list_implementation arraylist_implementation = {create,
                                                              add_first,
                                                              add_at,
                                                              node_value,
+                                                             set_node_value,
                                                              first_node,
                                                              contains,
                                                              free_list};

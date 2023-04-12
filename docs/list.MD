@@ -96,3 +96,7 @@ Further, initial function prototypes for list iterators are also added.
 The addition of these functions to the `list_implementeion` and the
 implementation in `list.c` will be added later as will the implementation
 in the concrete data type `array_list`.
+
+### 1.06a
+
+Trying out implementing `set_node_value`.

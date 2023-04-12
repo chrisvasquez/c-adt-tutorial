@@ -106,11 +106,18 @@ int main(int argc, char *argv[])
 
     list_node_t first_node = list_interface->first_node(list);
 
-    const void *first_node_value = list_interface->node_value(list, first_node);
+    int *first_node_value = (int *)list_interface->node_value(list, first_node);
 
-    (void) first_node_value;
+    printf("Original value : %d\n", *first_node_value);
+
+    int *new_value = (int *)malloc(sizeof(int *));
+    *new_value = 100;
+    list_interface->set_node_value(list, first_node, new_value);
+    int new_value_set = *((int *)list_interface->get_at(list, 0));
+    printf("New value : %d\n", new_value_set);
 
     list_interface->free_list(list);
 
     return 0;
 }
+

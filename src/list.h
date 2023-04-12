@@ -101,7 +101,7 @@ struct list_intf
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
     const void *(*node_value)(list_t list, list_node_t noe);
-//    int (*set_node_value)(list_t list, list_node_t node, const void *elt);
+    int (*set_node_value)(list_t list, list_node_t node, const void *elt);
     list_node_t (*first_node)(list_t list);
 //    list_node_t (*last_node)(list_t list);
 //    list_node_t (*previous_node)(list_t list, list_node_t node);
@@ -188,6 +188,7 @@ struct list_implementation
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_at)(list_t list, void *elt, size_t index);
     const void *(*node_value)(list_t list, list_node_t noe);
+    int (*set_node_value)(list_t list, list_node_t node, const void *elt);
     list_node_t (*first_node)(list_t list);
     bool (*contains)(list_t list, void *elt);
     void (*free_list)(list_t list);

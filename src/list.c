@@ -56,6 +56,11 @@ static const void *node_value(list_t list, list_node_t node)
     return ((const struct list_impl_base *)list)->fn_table->node_value(list, node);
 }
 
+static int set_node_value(list_t list, list_node_t node, const void *elt)
+{
+    return ((const struct list_impl_base *)list)->fn_table->set_node_value(list, node, elt);
+}
+
 static list_node_t first_node(list_t list)
 {
     return ((const struct list_impl_base *)list)->fn_table->first_node(list);
@@ -80,6 +85,7 @@ static const struct list_intf list_interface_implementation = {create,
                                                                add_first,
                                                                add_at,
                                                                node_value,
+                                                               set_node_value,
                                                                first_node,
                                                                contains,
                                                                free_list};
