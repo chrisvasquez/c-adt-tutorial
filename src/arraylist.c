@@ -41,19 +41,32 @@ static size_t size(list_t list)
     return list->count;
 }
 
-static void *get_at(list_t list, size_t index)
+static const void *get_at(list_t list, size_t index)
 {
-    return NULL;
+    if (index > list->count)
+        /* Invalid state / parameter */
+        abort();
+
+    return list->elements[index];
+
+    return
 }
 
 static void *get_first(list_t list)
 {
-    return NULL;
+    if (list->count == 0)
+        /* Invalid call, no element present if count = 0 */
+        abort();
+    return list->elements[0];
 }
 
 static void *get_last(list_t list)
 {
-    return NULL;
+    size_t count = list->count;
+    if (count == 0)
+        /* Invalid call, no element present if count = 0 */
+        abort();
+    return list->elements[count - 1];
 }
 
 static void *add_last(list_t list, void *elt)

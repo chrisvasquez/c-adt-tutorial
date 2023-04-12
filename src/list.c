@@ -21,7 +21,7 @@ static size_t size(list_t list)
     return ((const struct list_impl_base *)list)->fn_table->size(list);
 }
 
-static void *get_at(list_t list, size_t index)
+static const void *get_at(list_t list, size_t index)
 {
     return ((const struct list_impl_base *)list)->fn_table->get_at(list, index);
 }

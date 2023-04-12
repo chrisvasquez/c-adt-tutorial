@@ -49,3 +49,7 @@ the concrete data type array list. The required functions are reflected
 in all the `struct`s needed in the abstract data type. The basic
 `list_t` create by the `array_list_implementation` and the `size`
 function is implemented.
+
+### 1.04a
+
+ArrayList getters implemented.

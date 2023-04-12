@@ -84,7 +84,7 @@ struct list_intf
                      list_element_dispose_fn dispose_fn,
                      bool allow_duplicates);
     size_t (*size)(list_t list);
-    void *(*get_at)(list_t list, size_t index);
+    const void *(*get_at)(list_t list, size_t index);
     void *(*get_first)(list_t list);
     void *(*get_last)(list_t list);
     void *(*add_last)(list_t list, void *elt);
@@ -103,7 +103,7 @@ struct list_implementation
                      list_element_dispose_fn dispose_fn,
                      bool allow_duplicates);
     size_t (*size)(list_t list);
-    void *(*get_at)(list_t list, size_t index);
+    const void *(*get_at)(list_t list, size_t index);
     void *(*get_first)(list_t list);
     void *(*get_last)(list_t list);
     void *(*add_last)(list_t list, void *elt);
