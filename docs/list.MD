@@ -59,3 +59,7 @@ ArrayList getters implemented.
 Fixed error introduced by above commit regarding return type.
 Return type `void *` changed to `const void *` in the respective
 function declarations.
+
+### 1.04c
+
+Implemented grow function for array list.

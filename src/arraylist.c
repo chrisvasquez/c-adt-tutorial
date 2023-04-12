@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 
 #include "arraylist.h"
 
@@ -13,6 +14,30 @@ struct list_impl
     size_t count;
     size_t capacity;
 };
+
+/* Ensure that list->allocated > list->count.
+   Return 0 upon success, -1 upon out-of-memory.  */
+static int
+grow(list_t list)
+{
+    size_t new_allocated;
+    size_t memory_size;
+    const void **memory;
+
+    new_allocated = list->capacity * 2;
+    new_allocated += 1;
+    memory_size = new_allocated * sizeof(const void *);
+    if (memory_size == SIZE_MAX)
+        /* Overflow, would lead to out of memory.  */
+        return -1;
+    memory = (const void **)realloc(list->elements, memory_size);
+    if (memory == NULL)
+        /* Out of memory.  */
+        return -1;
+    list->elements = memory;
+    list->capacity = new_allocated;
+    return 0;
+}
 
 static list_t create(list_implementation_t implementation,
                      list_element_equals_fn equals_fn,
