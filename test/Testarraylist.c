@@ -65,11 +65,10 @@ void test_ArrayListNewlyCreateShouldHaveSizeZero(void)
 
 int main(int argc, char *argv[])
 {
-    // UNITY_BEGIN();
-    // RUN_TEST(test_TrialTest);
-    // RUN_TEST(test_ArrayListCreateShouldNotReturnNull);
-    // RUN_TEST(test_ArrayListNewlyCreateShouldHaveSizeZero);
+    UNITY_BEGIN();
+    RUN_TEST(test_TrialTest);
+    RUN_TEST(test_ArrayListCreateShouldNotReturnNull);
+    RUN_TEST(test_ArrayListNewlyCreateShouldHaveSizeZero);
     run();
-    // return UNITY_END();
-    return 0;
+    return UNITY_END();
 }

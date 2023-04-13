@@ -104,3 +104,17 @@ Trying out implementing `set_node_value`.
 ### 1.07
 
 Unity C Testing incorporated.
+
+## 1.08
+
+Fixed memory / syntax errors
+
+Fixed error :   `uintptr_t` not found in ubuntu / linux.
+Fixed error :   uninitialised pointer on creation of array list. Used
+                `calloc` instead of `malloc`.
+Fixed error :   Memory leak on `set_node_value` as the old memory of an
+                array list is not set free.
+Feat :  Incorporated `data_structures.c` in the test temporarily. Has to 
+        change format and content to actual test.
+
+

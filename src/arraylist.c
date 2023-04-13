@@ -250,10 +250,8 @@ free_list(list_t list)
                 const void **elements = list->elements;
 
                 do
-                {
-                    printf("Freeing %d.\n", *((int *)*elements));
                     dispose(*elements++);
-                } while (--count > 0);
+                while (--count > 0);
             }
         }
         free(list->elements);
