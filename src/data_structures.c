@@ -17,7 +17,7 @@ int compare_fn(const void *elt1, const void *elt2)
     return *((int *)elt2) - *((int *)elt1);
 }
 
-int main(int argc, char *argv[])
+int mainx(int argc, char *argv[])
 {
     printf("Starting data structures ...\n");
 

@@ -100,3 +100,7 @@ in the concrete data type `array_list`.
 ### 1.06a
 
 Trying out implementing `set_node_value`.
+
+### 1.07
+
+Unity C Testing incorporated.
