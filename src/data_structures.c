@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "arraylist.h"
+#include "data_structures.h"
 
 void dispose_fn(const void *kv) {
     free((void *) kv);
@@ -17,7 +18,7 @@ int compare_fn(const void *elt1, const void *elt2)
     return *((int *)elt2) - *((int *)elt1);
 }
 
-int mainx(int argc, char *argv[])
+void run()
 {
     printf("Starting data structures ...\n");
 
@@ -117,7 +118,5 @@ int mainx(int argc, char *argv[])
     printf("New value : %d\n", new_value_set);
 
     list_interface->free_list(list);
-
-    return 0;
 }
 

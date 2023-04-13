@@ -6,6 +6,11 @@
 
 #include <stdio.h>
 
+#include <unistd.h>
+#ifndef uintptr_t
+#include <stdint.h>
+#endif
+
 /* struct list_node_impl does not need to be implemented here.
  * The pointers are actually just indices + 1. The list_node_t is just
  * the 1-indexed position of the node in the list.
@@ -66,7 +71,7 @@ create(list_implementation_t implementation,
                      bool allow_duplicates)
 {
     struct list_impl *list =
-            (struct list_impl *) malloc(sizeof(struct list_impl));
+            (struct list_impl *) calloc(sizeof(struct list_impl), 1);
     if (list == NULL)
         return NULL;
 
@@ -195,7 +200,9 @@ set_node_value(list_t list, list_node_t node, const void *elt)
     size_t index = NODE_TO_INDEX(node);
     if (!(index < list->count))
         abort();
+    const void *e = list->elements[index];
     list->elements[index] = elt;
+    free((void *)e);
     return 0;
 }
 
@@ -243,8 +250,10 @@ free_list(list_t list)
                 const void **elements = list->elements;
 
                 do
+                {
+                    printf("Freeing %d.\n", *((int *)*elements));
                     dispose(*elements++);
-                while (--count > 0);
+                } while (--count > 0);
             }
         }
         free(list->elements);

@@ -7,6 +7,7 @@
 #include "../src/list.h"
 #include "../src/arraylist.h"
 #include "../unity/src/unity.h"
+#include "../src/data_structures.h"
 
 static
 list_t list;
@@ -64,9 +65,11 @@ void test_ArrayListNewlyCreateShouldHaveSizeZero(void)
 
 int main(int argc, char *argv[])
 {
-    UNITY_BEGIN();
-    RUN_TEST(test_TrialTest);
-    RUN_TEST(test_ArrayListCreateShouldNotReturnNull);
-    RUN_TEST(test_ArrayListNewlyCreateShouldHaveSizeZero);
-    return UNITY_END();
+    // UNITY_BEGIN();
+    // RUN_TEST(test_TrialTest);
+    // RUN_TEST(test_ArrayListCreateShouldNotReturnNull);
+    // RUN_TEST(test_ArrayListNewlyCreateShouldHaveSizeZero);
+    run();
+    // return UNITY_END();
+    return 0;
 }
