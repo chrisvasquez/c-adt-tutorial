@@ -62,7 +62,7 @@ SRCS = $(wildcard $(PATHS)*.c)
 OBJS = $(patsubst $(PATHS)%.c, $(PATHO)%.o, $(SRCS))
 
 # All of the .c files in $(PATHT) = ./test
-#SRCT = $(wildcard $(PATHT)*.c)
+SRCT = $(wildcard $(PATHT)*.c)
 
 # All of the Test*.c files in the test folder $(PATHT)
 # Test*.c files are the files for the executable tests
