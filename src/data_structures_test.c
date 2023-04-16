@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 #include "arraylist.h"
-#include "data_structures.h"
+#include "data_structures_test.h"
 
 void dispose_fn(const void *kv) {
     free((void *) kv);
