@@ -98,22 +98,6 @@ test: $(BUILD_PATHS) $(RESULTS) ctags
 	@echo "-----------------------\nPASSED:\n-----------------------"
 	@echo "$(PASSED)"
 	@echo "\nDONE"
-#	@echo "-----------------------\nSRCS:\n-----------------------"
-#	@echo "\n$(SRCS)\n"
-#	@echo "-----------------------\nOBJS:\n-----------------------"
-#	@echo "\n$(OBJS)\n"
-#	@echo "-----------------------\nSRCT:\n-----------------------"
-#	@echo "\n$(SRCT)\n"
-#	@echo "-----------------------\nSRCTX:\n-----------------------"
-#	@echo "\n$(SRCTX)\n"
-#	@echo "-----------------------\nOBJTX:\n-----------------------"
-#	@echo "\n$(OBJTX)\n"
-#	@echo "-----------------------\nSRCTS:\n-----------------------"
-#	@echo "\n$(SRCTS)\n"
-#	@echo "-----------------------\nOBJTS:\n-----------------------"
-#	@echo "\n$(OBJTS)\n"
-#	@echo "-----------------------\nSRCTS:\n-----------------------"
-#	@echo "\n$(SRCTS)\n"
 
 # Creates all the results.txt files by executing all the test executables
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
