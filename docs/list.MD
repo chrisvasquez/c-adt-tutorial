@@ -117,6 +117,9 @@ Fixed error :   Memory leak on `set_node_value` as the old memory of an
 Feat :  Incorporated `data_structures.c` in the test temporarily. Has to 
         change format and content to actual test.
 
+## 1.09
+
+Implemented `remove_at` function
 
 TTD
 ---------
