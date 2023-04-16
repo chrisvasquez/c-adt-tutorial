@@ -124,6 +124,8 @@ TTD
 * Determine policy and implement iterator invalidation
 * Determine policy on memory management in relation to changing values of existing list elements
 * Determine policy on return types (`const void *` vs `list_node_t`) and effects possibly on thread-safety.
-* 
+* Makefile / Autoconf :
+  * Add more configuration to accomodate different platforms
+  * Refactor and clean-up makefile esp part regarding different platforms
 
 
