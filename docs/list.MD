@@ -118,3 +118,12 @@ Feat :  Incorporated `data_structures.c` in the test temporarily. Has to
         change format and content to actual test.
 
 
+TTD
+---------
+* Implement thread safety or multiprocessing / parallel computing
+* Determine policy and implement iterator invalidation
+* Determine policy on memory management in relation to changing values of existing list elements
+* Determine policy on return types (`const void *` vs `list_node_t`) and effects possibly on thread-safety.
+* 
+
+
