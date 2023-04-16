@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "arraylist.h"
+#include "../src/arraylist.h"
 #include "data_structures_test.h"
 
 void dispose_fn(const void *kv) {

@@ -7,7 +7,7 @@
 #include "../src/list.h"
 #include "../src/arraylist.h"
 #include "../unity/src/unity.h"
-#include "../src/data_structures_test.h"
+#include "data_structures_test.h"
 
 static
 list_t list;

@@ -56,22 +56,41 @@ LINK=$(CC) -g3
 DEPEND=$(CC) -MM -MG -MF
 CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST -fPIC # -fPIC only in linux ?
 
+# All of the .c files in $(PATHS) = ./src
 SRCS = $(wildcard $(PATHS)*.c)
-SRCT = $(wildcard $(PATHT)*.c)
+# all of the .c files converted to .o files
+OBJS = $(patsubst $(PATHS)%.c, $(PATHO)%.o, $(SRCS))
+
+# All of the .c files in $(PATHT) = ./test
+#SRCT = $(wildcard $(PATHT)*.c)
+
+# All of the Test*.c files in the test folder $(PATHT)
+# Test*.c files are the files for the executable tests
+SRCTX = $(wildcard $(PATHT)Test*.c)
+# The Test*.c files compile to .o
+OBJTX = $(patsubst $(PATHT)%.c, $(PATHO)%.o, $(SRCTX))
+
+# All of the support files in the test folder $(PATHT)
+# These are not executable and are just imported by the Test*.c files
+SRCTS = $(filter-out $(PATHT)Test%.c, $(SRCT))
+# The test support files compiled to .o
+OBJTS = $(patsubst $(PATHT)%.c, $(PATHO)%.o, $(SRCTS))
+
 # make provision for only object files for data structures and not the tests
 SRCL = $(filter-out $(PATHS)%test.c, $(SRCS))
-
-OBJS = $(patsubst $(PATHS)%.c, $(PATHO)%.o, $(SRCS))
 OBJL = $(patsubst $(PATHS)%.c, $(PATHO)%.o, $(SRCL))
-RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
+
+# The txt files that results from the execution of the tests.
+RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCTX))
 
 PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR) $(PATHL) ctags
+# All the paths needed in the build directory
+BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR) $(PATHL)
 
-test: $(BUILD_PATHS) $(RESULTS)
+test: $(BUILD_PATHS) $(RESULTS) ctags
 	@echo "-----------------------\nIGNORES:\n-----------------------"
 	@echo "$(IGNORE)"
 	@echo "-----------------------\nFAILURES:\n-----------------------"
@@ -79,40 +98,73 @@ test: $(BUILD_PATHS) $(RESULTS)
 	@echo "-----------------------\nPASSED:\n-----------------------"
 	@echo "$(PASSED)"
 	@echo "\nDONE"
+#	@echo "-----------------------\nSRCS:\n-----------------------"
+#	@echo "\n$(SRCS)\n"
+#	@echo "-----------------------\nOBJS:\n-----------------------"
+#	@echo "\n$(OBJS)\n"
+#	@echo "-----------------------\nSRCT:\n-----------------------"
+#	@echo "\n$(SRCT)\n"
+#	@echo "-----------------------\nSRCTX:\n-----------------------"
+#	@echo "\n$(SRCTX)\n"
+#	@echo "-----------------------\nOBJTX:\n-----------------------"
+#	@echo "\n$(OBJTX)\n"
+#	@echo "-----------------------\nSRCTS:\n-----------------------"
+#	@echo "\n$(SRCTS)\n"
+#	@echo "-----------------------\nOBJTS:\n-----------------------"
+#	@echo "\n$(OBJTS)\n"
+#	@echo "-----------------------\nSRCTS:\n-----------------------"
+#	@echo "\n$(SRCTS)\n"
 
+# Creates all the results.txt files by executing all the test executables
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1
 
-$(PATHB)Test%.$(TARGET_EXTENSION): $(OBJS) $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o #$(PATHD)Test%.d
+# Creates the test executables
+# Requires
+# 1) The test executable object file Text%.o
+# 2) All the source object files $(OBJS)
+# 3) All the test support object files $(OBJTS)
+# 4) Unity object file $(PATHO)unity.o
+$(PATHB)Test%.$(TARGET_EXTENSION): $(OBJS) $(OBJTS) $(PATHO)Test%.o  $(PATHO)unity.o # $(PATHO)%.o #$(PATHD)Test%.d
 	$(LINK) -o $@ $^
 
+# Rule for compiling all TEST files to object files
 $(PATHO)%.o:: $(PATHT)%.c
 	$(COMPILE) $(CFLAGS) $< -o $@
 
+# Rule for compiling all SOURCE files to object files
 $(PATHO)%.o:: $(PATHS)%.c
 	$(COMPILE) $(CFLAGS) $< -o $@
 
+# Rule for compiling all Unity files to object files
 $(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
 	$(COMPILE) $(CFLAGS) $< -o $@
 
+# Rule for creating depends files for all test source files
 $(PATHD)%.d:: $(PATHT)%.c
 	$(DEPEND) $@ $<
 
+# Build path creation
 $(PATHB):
 	$(MKDIR) $(PATHB)
 
+# Depends path creation
 $(PATHD):
 	$(MKDIR) $(PATHD)
 
+# Object path creation
 $(PATHO):
 	$(MKDIR) $(PATHO)
 
+# Results path creation
 $(PATHR):
 	$(MKDIR) $(PATHR)
 
+# Library path creation
 $(PATHL):
 	$(MKDIR) $(PATHL)
 
+# Create ctags
 ctags: $(SRCS) $(SRCT)
 	-@ctags $(SRCS) $(SRCT) > /dev/null 2>&1
 
