@@ -1,0 +1,12 @@
+AC_INIT()
+
+AC_CHECK_PROGS(CC, [clang, gcc], [""])
+AC_PROG_CC
+AC_SUBST(CC)
+
+AC_CHECK_HEADERS(unistd.h)
+
+AC_CONFIG_FILES([makefile.config])
+AC_CONFIG_HEADERS([config.h])
+
+AC_OUTPUT()

@@ -12,6 +12,32 @@ else
 	TARGET_EXTENSION=out
 endif
 
+
+
+ifeq ($(OSTYPE),cygwin)
+	CLEANUP = rm -f
+    MKDIR = mkdir -p
+    TARGET_EXTENSION=out
+
+else ifeq ($(OS),Windows_NT)
+  ifeq ($(shell uname -s),) # not in a bash-like shell
+	CLEANUP = del /F /Q
+	MKDIR = mkdir
+  else # in a bash-like shell, like msys
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+  endif
+	TARGET_EXTENSION=exe
+else ifeq ($(UNAME),Linux)
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+	TARGET_EXTENSION=out
+else ifeq ($(UNAME),Darwim)
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+	TARGET_EXTENSION=out
+else
+
 PATHU = unity/src
 PATHS = src/
 PATHT = test/

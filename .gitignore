@@ -54,3 +54,9 @@ dkms.conf
 build/
 misc.xml
 vsc.xml
+
+tags
+config.log
+config.status
+configure
+autom4te.cache
