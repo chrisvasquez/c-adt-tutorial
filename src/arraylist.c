@@ -95,9 +95,22 @@ size(list_t list)
 static const void *
 get_at(list_t list, size_t index)
 {
-    if (index > list->count)
+    /**
+     * 1.08j:issue
+     * Should a non existent item / index return NULL?
+     * Should there be an error indicator for when the call to a function fails
+     * without crashing the program?
+     * I say yes.
+     */
+    if (index >= list->count)
+        /* option 1 : crash the program */
         /* Invalid state / parameter */
-        abort();
+        //abort();
+
+        /* option 2 : do not crash the program */
+        // could return NULL or a boolean for success or failure
+        // while having a parameter passed getting the value of the results
+        return NULL;
 
     return (const void *)list->elements[index];
 }
@@ -259,16 +272,40 @@ free_list(list_t list)
     free(list);
 }
 
+static
+const void *remove_at(list_t list, size_t index)
+{
+    size_t count = list->count;
+    if (index >= count)
+        return NULL;
+    const void *result = list->elements[index];
+    size_t end = (count > 1) ? count - 1 : 0;
+    for (size_t i = index; i < end; i++) {
+        list->elements[i] = list->elements[i+1];
+    }
+    if (count > 0)
+        list->elements[count-1] = NULL;
+    list->count = count - 1;
+    return result;
+}
+
 const struct list_implementation arraylist_implementation = {create,
                                                              size,
+
                                                              get_at,
                                                              get_first,
                                                              get_last,
+
                                                              add_at,
                                                              add_first,
                                                              add_last,
+
+                                                             remove_at,
+
                                                              node_value,
                                                              set_node_value,
+
                                                              first_node,
+
                                                              contains,
                                                              free_list};

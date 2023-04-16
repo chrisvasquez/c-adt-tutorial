@@ -94,14 +94,20 @@ struct list_intf
                      list_element_dispose_fn dispose_fn,
                      bool allow_duplicates);
     size_t (*size)(list_t list);
+
     const void *(*get_at)(list_t list, size_t index);
     const void *(*get_first)(list_t list);
     const void *(*get_last)(list_t list);
+
     const void *(*add_at)(list_t list, void *elt, size_t index);
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_last)(list_t list, void *elt);
+
+    const void  *(*remove_at)(list_t list, size_t index);
+
     const void *(*node_value)(list_t list, list_node_t noe);
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);
+
     list_node_t (*first_node)(list_t list);
 //    list_node_t (*last_node)(list_t list);
 //    list_node_t (*previous_node)(list_t list, list_node_t node);
@@ -122,7 +128,8 @@ struct list_intf
 
 // Removal
 //    bool (*remove_node)(list_t list, list_node_t node);
-//    bool (*remove_at)(list_t list, size_t index);
+//    bool (*remove_first)(list_t list, size_t index);
+//    bool (*remove_last )(list_t list, size_t index);
 //    bool (*remove_elt)(list_t list, const void *elt);
 
     bool (*contains)(list_t list, void *elt);
@@ -181,15 +188,22 @@ struct list_implementation
                      list_element_dispose_fn dispose_fn,
                      bool allow_duplicates);
     size_t (*size)(list_t list);
+
     const void *(*get_at)(list_t list, size_t index);
     const void *(*get_first)(list_t list);
     const void *(*get_last)(list_t list);
+
     const void *(*add_at)(list_t list, void *elt, size_t index);
     const void *(*add_first)(list_t list, void *elt);
     const void *(*add_last)(list_t list, void *elt);
-    const void *(*node_value)(list_t list, list_node_t noe);
+
+    const void  *(*remove_at)(list_t list, size_t index);
+
+    const void *(*node_value)(list_t list, list_node_t node);
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);
+
     list_node_t (*first_node)(list_t list);
+
     bool (*contains)(list_t list, void *elt);
     void (*free_list)(list_t list);
 };
