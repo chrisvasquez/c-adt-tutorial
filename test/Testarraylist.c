@@ -265,6 +265,28 @@ void test_ArrayListRemoveLast(void)
     }
 }
 
+void test_ArrayListLastNode(void) {
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *) malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+    for (int i = n - 1; i >= 0; i--) {
+        /**
+         * This is the code being tested.
+         */
+        list_node_t n = list_interface->last_node(list);
+        TEST_ASSERT_NOT_NULL(n);
+        const void * v_returned = list_interface->node_value(list, n);
+        TEST_ASSERT_NOT_NULL(v_returned);
+        int k = *((int *)v_returned);
+        TEST_ASSERT_EQUAL(i, k);
+        list_interface->remove_last(list);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
@@ -282,6 +304,12 @@ int main(int argc, char *argv[])
     RUN_TEST(test_ArrayListRemoveAtRandomIndex);
     RUN_TEST(test_ArrayListRemoveFirst);
     RUN_TEST(test_ArrayListRemoveLast);
+
+    /**
+     * Node related tests
+     */
+    RUN_TEST(test_ArrayListLastNode);
+
 //    run();
     return UNITY_END();
 }

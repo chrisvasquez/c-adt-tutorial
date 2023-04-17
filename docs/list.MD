@@ -141,6 +141,10 @@ once it is removed from the `list`.
 
 Added `remove_first` and `remove_last`.
 
+### 1.09c
+
+Added `last_node`: getter for last node.
+
 TTD
 ---------
 * Implement thread safety or multiprocessing / parallel computing

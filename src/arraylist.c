@@ -224,9 +224,17 @@ static list_node_t
 first_node(list_t list)
 {
     if (list->count > 0) {
-        printf("Pointer     : %zu.\n", (uintptr_t) (size_t) ((0) + 1));
-        printf("Pointer B2B : %zu.\n", (uintptr_t) (list_node_t) (uintptr_t) (size_t) ((0) + 1));
         return INDEX_TO_NODE(0);
+    }
+    else
+        return NULL;
+}
+
+static list_node_t
+last_node(list_t list)
+{
+    if (list->count > 0) {
+        return INDEX_TO_NODE(list->count - 1);
     }
     else
         return NULL;
@@ -325,6 +333,7 @@ const struct list_implementation arraylist_implementation = {create,
                                                              set_node_value,
 
                                                              first_node,
+                                                             last_node,
 
                                                              contains,
                                                              free_list};

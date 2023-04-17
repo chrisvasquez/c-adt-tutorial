@@ -66,6 +66,12 @@ static list_node_t first_node(list_t list)
     return ((const struct list_impl_base *)list)->fn_table->first_node(list);
 }
 
+
+static list_node_t last_node(list_t list)
+{
+    return ((const struct list_impl_base *)list)->fn_table->last_node(list);
+}
+
 static bool remove_at(list_t list, size_t index)
 {
     return ((const struct list_impl_base *)list)->fn_table->remove_at(list, index);
@@ -112,6 +118,7 @@ static const struct list_intf list_interface_implementation = {create,
                                                                set_node_value,
 
                                                                first_node,
+                                                               last_node,
 
                                                                contains,
                                                                free_list};

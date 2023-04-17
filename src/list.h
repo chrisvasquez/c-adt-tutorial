@@ -107,19 +107,105 @@ struct list_intf
     bool (*remove_first)(list_t list);
     bool (*remove_last)(list_t list);
 
-    const void *(*node_value)(list_t list, list_node_t noe);
+    /*******
+     * Node related functions
+    */
+
+    /**
+     * Get the value of the node
+     * @param list
+     * @param noe
+     * @return
+     */
+    const void *(*node_value)(list_t list, list_node_t node);
+
+    /**
+     * Set the value of the node to elt.
+     * @param list
+     * @param node
+     * @param elt
+     * @return
+     */
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);
 
+    /**
+     * Return the first node of the list.
+     * @param list
+     * @return
+     */
     list_node_t (*first_node)(list_t list);
-//    list_node_t (*last_node)(list_t list);
+
+    /**
+     * REturn the last node
+     * @param list
+     * @return
+     */
+    list_node_t (*last_node)(list_t list);
+
+    /**
+     * Return the previous node
+     * @param list
+     * @param node
+     * @return
+     */
 //    list_node_t (*previous_node)(list_t list, list_node_t node);
+    /**
+     * Feturn the next node.
+     * @param list
+     * @param node
+     * @return
+     */
 //    list_node_t (*next_node)(list_t list, list_node_t node);
+    /**
+     * Get the node at index.
+     * @param list
+     * @param index
+     * @return
+     */
 //    list_node_t (*nx_get_at)(list_t list, size_t index);
+    /**
+     * Set the node at index or the value of the node at index
+     * @param list
+     * @param elt
+     * @param index
+     * @return
+     */
 //    list_node_t (*nx_set_at)(list_t list, const void *elt, size_t index);
+    /**
+     * Add an element at index and return the node.
+     * @param list
+     * @param elt
+     * @param index
+     * @return
+     */
 //    list_node_t (*nx_add_at)(list_t list, const void *elt, size_t index);
+    /**
+     * Add an element at the start and return the node.
+     * @param list
+     * @param elt
+     * @return
+     */
 //    list_node_t (*nx_add_first)(list_t list, const void *elt);
+    /**
+     * Add an element at the end and return the node.
+     * @param list
+     * @param elt
+     * @return
+     */
 //    list_node_t (*nx_add_last)(list_t list, const void *elt);
+    /**
+     * Add an element before a node and return the created node.
+     * @param list
+     * @param elt
+     * @return
+     */
 //    list_node_t (*nx_add_before)(list_t list, const void *elt, list_node_t node);
+    /**
+     * Add an element after a node  and return the created node.
+     * @param list
+     * @param elt
+     * @return
+     */
 //    list_node_t (*nx_add_after)(list_t list, const void *elt, list_node_t node);
 
 // Searching
@@ -207,6 +293,7 @@ struct list_implementation
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);
 
     list_node_t (*first_node)(list_t list);
+    list_node_t (*last_node)(list_t list);
 
     bool (*contains)(list_t list, void *elt);
     void (*free_list)(list_t list);
