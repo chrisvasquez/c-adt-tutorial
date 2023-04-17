@@ -121,9 +121,9 @@ Feat :  Incorporated `data_structures.c` in the test temporarily. Has to
 
 Implemented `remove_at` function
 
-## 1.09a
+### 1.09a
 
-Refactor `remova_at`: change return type of `remove_at` to `bool`.
+Refactor `remove_at`: change return type of `remove_at` to `bool`.
 
 C++ removes the element and frees the memory occupied by the element.
 Java removes the element and return the removed element. Java is a 
