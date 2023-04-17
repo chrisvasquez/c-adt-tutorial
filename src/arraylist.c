@@ -273,20 +273,21 @@ free_list(list_t list)
 }
 
 static
-const void *remove_at(list_t list, size_t index)
+bool remove_at(list_t list, size_t index)
 {
     size_t count = list->count;
-    if (index >= count)
-        return NULL;
-    const void *result = list->elements[index];
-    size_t end = (count > 1) ? count - 1 : 0;
-    for (size_t i = index; i < end; i++) {
-        list->elements[i] = list->elements[i+1];
+    const void **elements = list->elements;
+    size_t i;
+
+    if (!(index < count))
+        return false;
+    if (list->base.dispose_fn != NULL)
+        list->base.dispose_fn(elements[index]);
+    for (i = index + 1; i < count; i++) {
+        elements[i - 1] = elements[i];
     }
-    if (count > 0)
-        list->elements[count-1] = NULL;
     list->count = count - 1;
-    return result;
+    return true;
 }
 
 const struct list_implementation arraylist_implementation = {create,

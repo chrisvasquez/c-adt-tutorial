@@ -66,7 +66,7 @@ static list_node_t first_node(list_t list)
     return ((const struct list_impl_base *)list)->fn_table->first_node(list);
 }
 
-static const void *remove_at(list_t list, size_t index)
+static bool remove_at(list_t list, size_t index)
 {
     return ((const struct list_impl_base *)list)->fn_table->remove_at(list, index);
 }

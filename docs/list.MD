@@ -121,6 +121,22 @@ Feat :  Incorporated `data_structures.c` in the test temporarily. Has to
 
 Implemented `remove_at` function
 
+## 1.09a
+
+Refactor `remova_at`: change return type of `remove_at` to `bool`.
+
+C++ removes the element and frees the memory occupied by the element.
+Java removes the element and return the removed element. Java is a 
+garbage-collected language and thus this will not cause any problems.
+C++ though is not GC. Returning a pointer to the element to the user
+gives the user the responsibility to free up the memory. Instead, the 
+implementation in this library will follow `gnulib`, with a small change,
+that frees the memory on removal and return `bool` true for a successful 
+operation and `false` otherwise. If the element is needed, the user
+should just `get_at()` first before removing it. An option is also to 
+copy the content of that element to a new memory to preserve the element
+once it is removed from the `list`.
+
 TTD
 ---------
 * Implement thread safety or multiprocessing / parallel computing
