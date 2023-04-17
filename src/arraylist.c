@@ -290,6 +290,22 @@ bool remove_at(list_t list, size_t index)
     return true;
 }
 
+
+static
+bool remove_first(list_t list)
+{
+    return remove_at(list, 0);
+}
+
+static
+bool remove_last(list_t list)
+{
+    size_t count = list->count;
+    if (count == 0)
+        return false;
+    return remove_at(list, count - 1);
+}
+
 const struct list_implementation arraylist_implementation = {create,
                                                              size,
 
@@ -302,6 +318,8 @@ const struct list_implementation arraylist_implementation = {create,
                                                              add_last,
 
                                                              remove_at,
+                                                             remove_first,
+                                                             remove_last,
 
                                                              node_value,
                                                              set_node_value,

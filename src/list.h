@@ -104,6 +104,8 @@ struct list_intf
     const void *(*add_last)(list_t list, void *elt);
 
     bool (*remove_at)(list_t list, size_t index);
+    bool (*remove_first)(list_t list);
+    bool (*remove_last)(list_t list);
 
     const void *(*node_value)(list_t list, list_node_t noe);
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);
@@ -198,6 +200,8 @@ struct list_implementation
     const void *(*add_last)(list_t list, void *elt);
 
     bool (*remove_at)(list_t list, size_t index);
+    bool (*remove_first)(list_t list);
+    bool (*remove_last)(list_t list);
 
     const void *(*node_value)(list_t list, list_node_t node);
     int (*set_node_value)(list_t list, list_node_t node, const void *elt);

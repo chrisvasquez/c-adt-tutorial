@@ -137,6 +137,10 @@ should just `get_at()` first before removing it. An option is also to
 copy the content of that element to a new memory to preserve the element
 once it is removed from the `list`.
 
+### 1.09b
+
+Added `remove_first` and `remove_last`.
+
 TTD
 ---------
 * Implement thread safety or multiprocessing / parallel computing

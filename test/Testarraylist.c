@@ -168,7 +168,6 @@ void test_ArrayListRemoveAtFromLast(void)
     }
 }
 
-
 void test_ArrayListRemoveAtFromFirst(void)
 {
     int n = 1000;
@@ -223,6 +222,49 @@ void test_ArrayListRemoveAtRandomIndex(void)
     TEST_ASSERT_FALSE(list_interface->remove_at(list, 0));
 }
 
+
+void test_ArrayListRemoveFirst(void)
+{
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *)malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+    for (int i = 0; i < n; i++) {
+        int *number = (int *)malloc(sizeof(int));
+        *number = i;
+        list_interface->add_at(list, number, i);
+    }
+    TEST_ASSERT_EQUAL(2 * n, list_interface->size(list));
+    for (size_t i = 0; i < 2 * n; i++)
+    {
+        TEST_ASSERT_TRUE(list_interface->remove_first(list));
+    }
+}
+
+void test_ArrayListRemoveLast(void)
+{
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *)malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+    for (int i = 0; i < n; i++) {
+        int *number = (int *)malloc(sizeof(int));
+        *number = i;
+        list_interface->add_at(list, number, i);
+    }
+    TEST_ASSERT_EQUAL(2 * n, list_interface->size(list));
+    for (size_t i = 2 * n - 1; i > 0; i--)
+    {
+        TEST_ASSERT_TRUE(list_interface->remove_last(list));
+    }
+}
+
 int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
@@ -237,7 +279,9 @@ int main(int argc, char *argv[])
     RUN_TEST(test_ArrayListRemoveAtWithEmptyList);
     RUN_TEST(test_ArrayListRemoveAtFromLast);
     RUN_TEST(test_ArrayListRemoveAtFromFirst);
-//    RUN_TEST(test_ArrayListRemoveAtRandomIndex);
+    RUN_TEST(test_ArrayListRemoveAtRandomIndex);
+    RUN_TEST(test_ArrayListRemoveFirst);
+    RUN_TEST(test_ArrayListRemoveLast);
 //    run();
     return UNITY_END();
 }
