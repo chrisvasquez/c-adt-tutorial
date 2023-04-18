@@ -369,6 +369,17 @@ void test_ArrayListNextNode(void) {
     }
 }
 
+void test_Sandbox(void)
+{
+    int *i = (int *)malloc(sizeof (int));
+    *i = 3;
+    list_interface->add_first(list, i);
+    const void *result = list_interface->get_first(list);
+    // Not a recommended way of doing things.
+    *((int *)result) = 4;
+    printf("%d\n", *((int *)list_interface->get_first(list)));
+}
+
 int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
@@ -396,5 +407,10 @@ int main(int argc, char *argv[])
     RUN_TEST(test_ArrayListNextNode);
 
 //    run();
+    /**
+     * Sandbox
+     */
+    RUN_TEST(test_Sandbox);
+
     return UNITY_END();
 }

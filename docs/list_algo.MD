@@ -1,5 +1,7 @@
 # List Data Structure
 
+Currently not thread-safe.
+
 ```
    list is an abstract list data type.  It can contain any number of
    objects ('void *' or 'const void *' pointers) in any given order.
@@ -70,12 +72,11 @@
    sortedlist_indexof_fro O(log n)   O(n)   O(log n)    O(n)       O(log n)
    sortedlist_add           O(n)     O(n)   O(log n)    O(n)    O((log n)²)/O(log n)
    sortedlist_remove        O(n)     O(n)   O(log n)    O(n)    O((log n)²)/O(log n)
-
 ```
 
 Explanations: Algorithms
 
-```c
+```
    The guaranteed average performance of the operations is, for a list of
    n elements:
    Operation                  ARRAY    LINKED    TREE    LINKEDHASH   TREEHASH
@@ -120,3 +121,27 @@ Explanations: Algorithms
    sortedlist_add           O(n)     O(n)   O(log n)    O(n)    O((log n)²)/O(log n)
    sortedlist_remove        O(n)     O(n)   O(log n)    O(n)    O((log n)²)/O(log n)
 ```
+
+Return values from methods include:
+* `list_t` for the `create` methods, whether for empty lists or lists populated with 
+contents from other containers.
+* `const void *`, from getters.
+  * Issues about this return type. The following code will work.
+    ```c
+    const void *result = list_interface->get_first(list);
+    // Not a recommended way of doing things.
+    *((int *)result) = value;
+    ```
+  * The recommended way of updating value is through:
+    * `set_value_at(list_t list, size_t index);`
+    * `set_node_value(list_t list, list_node_t node, const void *value);`
+* `bool` as indication of success or failure in updating nodes or values.
+* `list_node_t` from getters of nodes or getting the node for a value.
+* `list_iterator_t` from specific getter for this type.
+
+Considerations in designing the algorithms and data structures will include:
+* Effective data abstraction.
+* Simplification of memory management and prevention of memory leaks.
+* Greater control for the user of the library.
+* Smaller memory footprint.
+
