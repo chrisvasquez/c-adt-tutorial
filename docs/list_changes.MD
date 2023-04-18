@@ -153,6 +153,10 @@ Added `nx_get_at`, `previous_node`, and `next_node`.
 
 Docs: Added markdown files for explanation of list algorithm
 
+### 1.09f
+
+Docs: Explanation on how the algorithm is used.
+
 TTD
 ---------
 * Implement thread safety or multiprocessing / parallel computing
