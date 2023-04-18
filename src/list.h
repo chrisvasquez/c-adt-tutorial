@@ -109,7 +109,8 @@ struct list_intf
 
     /*******
      * Node related functions
-    */
+     * Returns `list_node_t`
+     */
 
     /**
      * Get the value of the node
@@ -148,21 +149,24 @@ struct list_intf
      * @param node
      * @return
      */
-//    list_node_t (*previous_node)(list_t list, list_node_t node);
+    list_node_t (*previous_node)(list_t list, list_node_t node);
+
     /**
      * Feturn the next node.
      * @param list
      * @param node
      * @return
      */
-//    list_node_t (*next_node)(list_t list, list_node_t node);
+    list_node_t (*next_node)(list_t list, list_node_t node);
+
     /**
      * Get the node at index.
      * @param list
      * @param index
      * @return
      */
-//    list_node_t (*nx_get_at)(list_t list, size_t index);
+    list_node_t (*nx_get_at)(list_t list, size_t index);
+
     /**
      * Set the node at index or the value of the node at index
      * @param list
@@ -294,6 +298,9 @@ struct list_implementation
 
     list_node_t (*first_node)(list_t list);
     list_node_t (*last_node)(list_t list);
+    list_node_t (*previous_node)(list_t list, list_node_t node);
+    list_node_t (*next_node)(list_t list, list_node_t node);
+    list_node_t (*nx_get_at)(list_t list, size_t index);
 
     bool (*contains)(list_t list, void *elt);
     void (*free_list)(list_t list);

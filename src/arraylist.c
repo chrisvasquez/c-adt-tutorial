@@ -189,7 +189,6 @@ static const void *
 node_value(list_t list, list_node_t node)
 {
     uintptr_t index = NODE_TO_INDEX(node);
-    printf("uintptr_t index is: %zu.\n", index);
     if (!(index < list->count))
         /* Invalid argument.  */
         abort();
@@ -238,6 +237,38 @@ last_node(list_t list)
     }
     else
         return NULL;
+}
+
+static list_node_t
+previous_node(list_t list, list_node_t node)
+{
+    size_t index = NODE_TO_INDEX(node);
+    if (list->count > 0) {
+        return INDEX_TO_NODE(index - 1);
+    }
+    else
+        return NULL;
+}
+
+static list_node_t
+next_node(list_t list, list_node_t node)
+{
+
+    size_t index = NODE_TO_INDEX(node);
+    if (index < list->count - 2) {
+        return INDEX_TO_NODE(index + 1);
+    }
+    else
+        return NULL;
+}
+
+static list_node_t
+nx_get_at(list_t list, size_t index)
+{
+    size_t count = list->count;
+    if (!(index < count))
+        return NULL;
+    return INDEX_TO_NODE(index);
 }
 
 static bool
@@ -334,6 +365,9 @@ const struct list_implementation arraylist_implementation = {create,
 
                                                              first_node,
                                                              last_node,
+                                                             previous_node,
+                                                             next_node,
+                                                             nx_get_at,
 
                                                              contains,
                                                              free_list};

@@ -287,6 +287,88 @@ void test_ArrayListLastNode(void) {
     }
 }
 
+
+void test_ArrayListNxGetAt(void) {
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *) malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+    for (int i = 0; i < n; i++) {
+        /**
+         * This is the code being tested.
+         */
+        list_node_t n = list_interface->nx_get_at(list, i);
+        TEST_ASSERT_NOT_NULL(n);
+        const void * v_returned = list_interface->node_value(list, n);
+        TEST_ASSERT_NOT_NULL(v_returned);
+        int k = *((int *)v_returned);
+        TEST_ASSERT_EQUAL(i, k);
+    }
+}
+
+void test_ArrayListPreviousNode(void) {
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *) malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+
+    list_node_t current_node = list_interface->last_node(list);
+    TEST_ASSERT_NOT_NULL(current_node);
+
+    for (int i = n - 1; i >= 0; i--) {
+        /**
+         * This is the code being tested.
+         */
+        list_node_t cursor_node = list_interface->previous_node(list, current_node);
+        TEST_ASSERT_NOT_NULL(cursor_node);
+
+        const void *current_node_v = list_interface->node_value(list, current_node);
+        TEST_ASSERT_NOT_NULL(current_node_v);
+        const void *cursor_node_v = list_interface->node_value(list, cursor_node);
+        if (i > 0) {
+            TEST_ASSERT_NOT_NULL(cursor_node_v);
+            TEST_ASSERT_EQUAL(*((int *)current_node_v) - 1, *((int *)cursor_node_v));
+            current_node = list_interface->nx_get_at(list, i);
+        }
+    }
+}
+
+void test_ArrayListNextNode(void) {
+    int n = 1000;
+    for (int i = 0; i < n; i++) {
+        int *number = (int *) malloc(sizeof(int));
+        *number = i;
+        list_interface->add_last(list, number);
+    }
+    TEST_ASSERT_EQUAL(n, list_interface->size(list));
+
+    list_node_t current_node = list_interface->first_node(list);
+    TEST_ASSERT_NOT_NULL(current_node);
+
+    for (int i = 0; i < n - 2; i++) {
+        /**
+         * This is the code being tested.
+         */
+        list_node_t cursor_node = list_interface->next_node(list, current_node);
+        TEST_ASSERT_NOT_NULL(cursor_node);
+
+        const void *current_node_v = list_interface->node_value(list, current_node);
+        TEST_ASSERT_NOT_NULL(current_node_v);
+        const void *cursor_node_v = list_interface->node_value(list, cursor_node);
+        if (i < n - 1) {
+            TEST_ASSERT_NOT_NULL(cursor_node_v);
+            TEST_ASSERT_EQUAL(*((int *)current_node_v) + 1, *((int *)cursor_node_v));
+            current_node = list_interface->nx_get_at(list, i);
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     UNITY_BEGIN();
@@ -308,7 +390,10 @@ int main(int argc, char *argv[])
     /**
      * Node related tests
      */
+    RUN_TEST(test_ArrayListNxGetAt);
     RUN_TEST(test_ArrayListLastNode);
+    RUN_TEST(test_ArrayListPreviousNode);
+    RUN_TEST(test_ArrayListNextNode);
 
 //    run();
     return UNITY_END();
