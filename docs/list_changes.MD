@@ -145,6 +145,14 @@ Added `remove_first` and `remove_last`.
 
 Added `last_node`: getter for last node.
 
+### 1.09d
+
+Added `nx_get_at`, `previous_node`, and `next_node`.
+
+### 1.09e
+
+Docs: Added markdown files for explanation of list algorithm
+
 TTD
 ---------
 * Implement thread safety or multiprocessing / parallel computing
