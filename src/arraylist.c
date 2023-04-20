@@ -1,15 +1,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include <limits.h>
-
-#include "arraylist.h"
-
 #include <stdio.h>
-
-#include <unistd.h>
 #ifndef uintptr_t
 #include <stdint.h>
 #endif
+
+#include "arraylist.h"
 
 /* struct list_node_impl does not need to be implemented here.
  * The pointers are actually just indices + 1. The list_node_t is just
@@ -171,7 +167,7 @@ add_at(list_t list, void *elt, size_t index)
     const void **elements;
     size_t i;
 
-    if (!(index <= count))
+    if (index >= count)
         /* Invalid argument.  */
         abort();
     if (count == list->capacity)
@@ -189,7 +185,7 @@ static const void *
 node_value(list_t list, list_node_t node)
 {
     uintptr_t index = NODE_TO_INDEX(node);
-    if (!(index < list->count))
+    if (index >= list->count)
         /* Invalid argument.  */
         abort();
     return list->elements[index];
@@ -210,7 +206,7 @@ static int
 set_node_value(list_t list, list_node_t node, const void *elt)
 {
     size_t index = NODE_TO_INDEX(node);
-    if (!(index < list->count))
+    if (index >= list->count)
         abort();
     const void *e = list->elements[index];
     list->elements[index] = elt;
@@ -266,7 +262,7 @@ static list_node_t
 nx_get_at(list_t list, size_t index)
 {
     size_t count = list->count;
-    if (!(index < count))
+    if (index >= count)
         return NULL;
     return INDEX_TO_NODE(index);
 }
@@ -318,7 +314,7 @@ bool remove_at(list_t list, size_t index)
     const void **elements = list->elements;
     size_t i;
 
-    if (!(index < count))
+    if (index >= count)
         return false;
     if (list->base.dispose_fn != NULL)
         list->base.dispose_fn(elements[index]);

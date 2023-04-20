@@ -17,6 +17,8 @@ else ifeq ($(OS),Windows_NT)
 	MKDIR = mkdir -p
   endif
 	TARGET_EXTENSION=exe
+	SHARED_LIBRARY_EXTENSION=dll
+    SHARED_LIBRARY_FLAG=-shared
 else ifeq ($(UNAME),Linux)
 	CLEANUP = rm -f
 	MKDIR = mkdir -p
@@ -54,7 +56,7 @@ PATHL = build/lib/
 COMPILE=$(CC) -c -g3
 LINK=$(CC) -g3
 DEPEND=$(CC) -MM -MG -MF
-CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST -fPIC # -fPIC only in linux ?
+CFLAGS=-Wall -g3 -std=c99 -I. -I$(PATHU) -I$(PATHS) -DTEST -fPIC # -fPIC only in linux ?
 
 # All of the .c files in $(PATHS) = ./src
 SRCS = $(wildcard $(PATHS)*.c)
@@ -90,7 +92,7 @@ IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 # All the paths needed in the build directory
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR) $(PATHL)
 
-test: $(BUILD_PATHS) $(RESULTS) ctags
+test: unity ctags $(BUILD_PATHS) $(RESULTS)
 	@echo "-----------------------\nIGNORES:\n-----------------------"
 	@echo "$(IGNORE)"
 	@echo "-----------------------\nFAILURES:\n-----------------------"
@@ -115,6 +117,9 @@ $(PATHB)Test%.$(TARGET_EXTENSION): $(OBJS) $(OBJTS) $(PATHO)Test%.o  $(PATHO)uni
 # Rule for compiling all TEST files to object files
 $(PATHO)%.o:: $(PATHT)%.c
 	$(COMPILE) $(CFLAGS) $< -o $@
+
+unity:
+	git clone https://github.com/ThrowTheSwitch/Unity.git unity
 
 # Rule for compiling all SOURCE files to object files
 $(PATHO)%.o:: $(PATHS)%.c

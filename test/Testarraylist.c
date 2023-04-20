@@ -377,7 +377,6 @@ void test_Sandbox(void)
     const void *result = list_interface->get_first(list);
     // Not a recommended way of doing things.
     *((int *)result) = 4;
-    printf("%d\n", *((int *)list_interface->get_first(list)));
 }
 
 int main(int argc, char *argv[])
